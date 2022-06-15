@@ -8,7 +8,20 @@ function alerta(mensaje) {
 }
 
 function descuentos(cantidad) {
-        return cantidad = cantidad*0.83 //se aplica un 17% de descuento al valor
+    return cantidad = cantidad*0.83 //se aplica un 17% de descuento al valor
+}
+
+//constructor
+
+function registroDePersonas(nombre,apellido,edad) {
+    this.nombre = nombre;
+    this.apellido = apellido;
+    this.edad = edad;
+}
+
+function registroDeUsuarios(user,pass) {
+    this.usuario = user;
+    this.contrasena = pass;
 }
 
 //ingreso de datos
@@ -17,11 +30,8 @@ let nombre = dato("ingrese su primer nombre");
 let apellido = dato("ingrese su apellido");
 let edad = parseInt(dato("ingrese su edad"));
 
-console.log(edad);
-
 let usuario = "";
 let contrasena = "";
-
 //registro
 
 if (edad >= 18) {
@@ -34,7 +44,7 @@ if (edad >= 18) {
     }
     
     //inicio de sesion
-
+    
     let repeticiones = 3
     
     alerta("A continuacion, podrá iniciar sesión, tenga en cuenta que debe respetar las mayusculas ó tildes")
@@ -46,11 +56,11 @@ if (edad >= 18) {
             alerta("Felicitaciones "+usuario+", iniciaste sesion correctamente");
             repeticiones = 0;
             //Calculadora de sueldo neto
-            let sueldoBruto = parseInt(dato("A continuacion ingrese su sueldo bruto. \nSolo ingrese numeros enteros:"));
+            var sueldoBruto = parseInt(dato("A continuacion ingrese su sueldo bruto. \nSolo ingrese numeros enteros:"));
             let sueldoNeto = descuentos(sueldoBruto);
             alerta("Su sueldo Neto es de: $"+sueldoNeto);
         } else{
-            alerta("usaste "+i+" intentos de 3");
+            alerta("usaste "+i+" intentos de 3");   
         }
     }
 } else{
@@ -59,3 +69,22 @@ if (edad >= 18) {
 
 alert("Gracias por visitar la pagina!")
 
+//Guardado del registro
+let personaUno = new registroDePersonas(nombre,apellido,edad);
+console.log("Los datos de la persona que usó nuestro servicio fueron:");
+console.log("Nombre: "+personaUno.nombre);
+console.log("Apellido: "+personaUno.apellido);
+console.log("Edad: "+personaUno.edad);
+
+let usuarioUno = new registroDeUsuarios(usuario,contrasena);
+console.log("El registro que se efectuó en la sesión, fue con los siguientes datos:");
+console.log("Usuario: "+usuarioUno.usuario);
+console.log("Contraseña: "+usuarioUno.contrasena);
+
+let datosDeUsuarios = [personaUno,usuarioUno];
+
+datosDeUsuarios.push(sueldoBruto)
+
+console.log("El sueldo bruto ingresado fue de: $"+sueldoBruto);
+
+console.log("La lista se conforma por "+datosDeUsuarios.length+" objetos que contienen los datos de Usuario anteriormente mencionados")
