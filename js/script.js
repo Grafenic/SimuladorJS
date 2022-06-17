@@ -11,6 +11,7 @@ function descuentos(cantidad) {
     return cantidad = cantidad*0.83 //se aplica un 17% de descuento al valor
 }
 
+
 //constructor
 
 function registroDePersonas(nombre,apellido,edad) {
@@ -30,11 +31,19 @@ let nombre = dato("ingrese su primer nombre");
 let apellido = dato("ingrese su apellido");
 let edad = parseInt(dato("ingrese su edad"));
 
+
+function mayoriaDeEdad(n) {  //funcion de orden superior
+    return (m) => m > n
+}
+
+let mayorDeEdad = mayoriaDeEdad(17);
+
+
 let usuario = "";
 let contrasena = "";
 //registro
 
-if (edad >= 18) {
+if (mayorDeEdad(edad)) {
     alerta("Bienvenido "+nombre+" "+apellido+", a la plataforma. \nA continuación, deberá recordar los siguientes datos a ingresar");
     do {
         usuario = dato("Cree un nombre de usuario, solo podrá continuar ingresando un dato:");
@@ -56,6 +65,7 @@ if (edad >= 18) {
             alerta("Felicitaciones "+usuario+", iniciaste sesion correctamente");
             repeticiones = 0;
             //Calculadora de sueldo neto
+            var profesion = dato("a continuacion ingrese su profesión:")
             var sueldoBruto = parseInt(dato("A continuacion ingrese su sueldo bruto. \nSolo ingrese numeros enteros:"));
             let sueldoNeto = descuentos(sueldoBruto);
             alerta("Su sueldo Neto es de: $"+sueldoNeto);
@@ -84,7 +94,8 @@ console.log("Contraseña: "+usuarioUno.contrasena);
 let datosDeUsuarios = [personaUno,usuarioUno];
 
 datosDeUsuarios.push(sueldoBruto)
+datosDeUsuarios.push(profesion)
 
-console.log("El sueldo bruto ingresado fue de: $"+sueldoBruto);
+console.log("El sueldo bruto ingresado fue de: $"+sueldoBruto+" y su profesión es: "+profesion);
 
-console.log("La lista se conforma por "+datosDeUsuarios.length+" objetos que contienen los datos de Usuario anteriormente mencionados")
+console.log("La lista se conforma por "+datosDeUsuarios.length+" items que contienen los datos de Usuario anteriormente mencionados")
