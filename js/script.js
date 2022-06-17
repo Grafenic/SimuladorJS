@@ -3,6 +3,10 @@ function dato(ingresoDeDato) {
     return prompt(ingresoDeDato)   
 }
 
+function consola(mensaje){
+    console.log(mensaje);
+}
+
 function alerta(mensaje) {
     return alert(mensaje)
 }
@@ -23,6 +27,17 @@ function registroDePersonas(nombre,apellido,edad) {
 function registroDeUsuarios(user,pass) {
     this.usuario = user;
     this.contrasena = pass;
+}
+
+function IngresoSueldos(profesion,sueldo) {
+    this.sueldo = sueldo
+    this.profesion = profesion
+}
+
+function sueldoProfesionUsuario(user,prof,sueldo) {
+    this.usuario = user
+    this.profesion = prof
+    this.sueldo = sueldo
 }
 
 //ingreso de datos
@@ -80,22 +95,39 @@ if (mayorDeEdad(edad)) {
 alert("Gracias por visitar la pagina!")
 
 //Guardado del registro
+    //Personas que visitan la pagina
 let personaUno = new registroDePersonas(nombre,apellido,edad);
-console.log("Los datos de la persona que usó nuestro servicio fueron:");
-console.log("Nombre: "+personaUno.nombre);
-console.log("Apellido: "+personaUno.apellido);
-console.log("Edad: "+personaUno.edad);
-
+consola("Los datos de la persona que usó nuestro servicio fueron:");
+consola("Nombre: "+personaUno.nombre);
+consola("Apellido: "+personaUno.apellido);
+consola("Edad: "+personaUno.edad);
+    //Personas registradas en la pagina
 let usuarioUno = new registroDeUsuarios(usuario,contrasena);
-console.log("El registro que se efectuó en la sesión, fue con los siguientes datos:");
-console.log("Usuario: "+usuarioUno.usuario);
-console.log("Contraseña: "+usuarioUno.contrasena);
+consola("El registro que se efectuó en la sesión, fue con los siguientes datos:");
+consola("Usuario: "+usuarioUno.usuario);
+consola("Contraseña: "+usuarioUno.contrasena);
 
-let datosDeUsuarios = [personaUno,usuarioUno];
+//Profesión y sueldo, solo de usuarios registrados. La function se encuentra en la zona "Constructor"
 
-datosDeUsuarios.push(sueldoBruto)
-datosDeUsuarios.push(profesion)
+let ingresoSegunProfesion = new IngresoSueldos(profesion,sueldoBruto)
+consola("Profesión: "+ingresoSegunProfesion.profesion);
+consola("Sueldo Bruto: $"+ingresoSegunProfesion.sueldo);
 
-console.log("El sueldo bruto ingresado fue de: $"+sueldoBruto+" y su profesión es: "+profesion);
+    //Lista con objetos y datos
+let datosDeUsuarios = [personaUno,usuarioUno];// se crea una lista
+datosDeUsuarios.push(ingresoSegunProfesion) //se agregó un objeto a la lista
+consola("La lista total se conforma por "+datosDeUsuarios.length+" items que contienen los datos de Usuario anteriormente mencionados")
 
-console.log("La lista se conforma por "+datosDeUsuarios.length+" items que contienen los datos de Usuario anteriormente mencionados")
+//Lista de PROFESION Y SUELDO BRUTO
+
+let profesionSueldoPorUsuario = new sueldoProfesionUsuario(usuario,profesion,sueldoBruto)
+    //Lista de usuarios con su profesion y sueldo
+let profesionSueldoLista = [profesionSueldoPorUsuario];
+    //Se itera la lista de objetos
+profesionSueldoLista.forEach((objects) =>{
+    consola(objects.usuario);
+    consola(objects.profesion);
+    consola(objects.sueldo);
+});
+
+
