@@ -92,8 +92,6 @@ if (mayorDeEdad(edad)) {
     alert("debe tener mayoria de edad para acceder")
 }
 
-alert("Gracias por visitar la pagina!")
-
 //Guardado del registro
     //Personas que visitan la pagina
 let personaUno = new registroDePersonas(nombre,apellido,edad);
@@ -129,5 +127,8 @@ profesionSueldoLista.forEach((objects) =>{
     consola(objects.profesion);
     consola(objects.sueldo);
 });
+
+let despedida = document.getElementById("despedida");
+despedida.innerText = "Gracias por visitar la pagina!"
 
 
