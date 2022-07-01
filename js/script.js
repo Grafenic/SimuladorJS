@@ -7,12 +7,20 @@ function consola(mensaje){
     console.log(mensaje);
 }
 
+
+let login = document.getElementById("login");  
+
 function alerta(mensaje) {
     return alert(mensaje)
 }
 
 function descuentos(cantidad) {
     return cantidad = cantidad*0.83 //se aplica un 17% de descuento al valor
+}
+
+function noReloadForm(e) {  //Evitar recarga al enviar formulario
+    e.preventDefault();
+    console.log("Datos Enviados");
 }
 
 
@@ -42,9 +50,36 @@ function sueldoProfesionUsuario(user,prof,sueldo) {
 
 //ingreso de datos
 
-let nombre = dato("ingrese su primer nombre");
-let apellido = dato("ingrese su apellido");
-let edad = parseInt(dato("ingrese su edad"));
+function guardarVariables(){
+    let nombre = document.querySelector("#nombre").value;
+    let apellido = document.querySelector("#apellido").value;
+    let edad = document.querySelector("#edad").value;
+    let campoVacioNombre = document.getElementById("campoVacioNombre")
+    let campoVacioApellido = document.getElementById("campoVacioApellido")
+    let campoVacioEdad = document.getElementById("campoVacioEdad")
+    if (nombre=="") {
+        campoVacioNombre.innerHTML = "Este campo es requerido."
+    } else {
+        if (apellido=="") {
+            campoVacioApellido.innerHTML = "Este campo es requerido."
+        }else{
+            if (edad=="") {
+                campoVacioEdad.innerHTML = "Este campo es requerido."
+            }
+        }
+    consola(nombre+" "+apellido+" "+edad)
+    localStorage.setItem("identificacionNombre", nombre)
+    localStorage.setItem("identificacionApellido", apellido)
+    localStorage.setItem("identificacionEdad", edad)
+    }
+}
+
+let datosPersonales = document.getElementById("formularioDatosPersonales") //llamada de form
+datosPersonales.addEventListener("submit", noReloadForm) //no recargar con el submit
+
+let nombre = localStorage.getItem("identificacionNombre")
+let apellido = localStorage.getItem("identificacionApellido")
+let edad = parseInt(localStorage.getItem("identificacionEdad"))
 
 
 function mayoriaDeEdad(n) {  //funcion de orden superior
@@ -54,12 +89,14 @@ function mayoriaDeEdad(n) {  //funcion de orden superior
 let mayorDeEdad = mayoriaDeEdad(17);
 
 
+
+
 let usuario = "";
 let contrasena = "";
 //registro
 
 if (mayorDeEdad(edad)) {
-    alerta("Bienvenido "+nombre+" "+apellido+", a la plataforma. \nA continuación, deberá recordar los siguientes datos a ingresar");
+    login.innerHTML = "Bienvenido "+nombre+" "+apellido+", a la plataforma. \nA continuación, deberá recordar los siguientes datos a ingresar";
     do {
         usuario = dato("Cree un nombre de usuario, solo podrá continuar ingresando un dato:");
     } while (usuario == "");
@@ -71,25 +108,25 @@ if (mayorDeEdad(edad)) {
     
     let repeticiones = 3
     
-    alerta("A continuacion, podrá iniciar sesión, tenga en cuenta que debe respetar las mayusculas ó tildes")
+    login.innerHTML = "A continuacion, podrá iniciar sesión, tenga en cuenta que debe respetar las mayusculas ó tildes";
     
     for (let i = 1; i <= repeticiones; i++) {
         let inicioSesion = dato("ingresar usuario")
         let pass = dato("ingresar contraseña")
         if ((inicioSesion === usuario) && (pass === contrasena)) {
-            alerta("Felicitaciones "+usuario+", iniciaste sesion correctamente");
+            login.innerHTML = "Felicitaciones "+usuario+", iniciaste sesion correctamente";
             repeticiones = 0;
             //Calculadora de sueldo neto
             var profesion = dato("a continuacion ingrese su profesión:")
             var sueldoBruto = parseInt(dato("A continuacion ingrese su sueldo bruto. \nSolo ingrese numeros enteros:"));
             let sueldoNeto = descuentos(sueldoBruto);
-            alerta("Su sueldo Neto es de: $"+sueldoNeto);
+            login.innerHTML = "Su sueldo Neto es de: $"+sueldoNeto;
         } else{
-            alerta("usaste "+i+" intentos de 3");   
+            login.innerHTML = "usaste "+i+" intentos de 3";   
         }
     }
 } else{
-    alert("debe tener mayoria de edad para acceder")
+    login.innerHTML = "debe tener mayoria de edad para acceder";
 }
 
 //Guardado del registro
@@ -130,5 +167,3 @@ profesionSueldoLista.forEach((objects) =>{
 
 let despedida = document.getElementById("despedida");
 despedida.innerText = "Gracias por visitar la pagina!"
-
-
